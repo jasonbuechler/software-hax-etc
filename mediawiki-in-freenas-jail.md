@@ -1,7 +1,7 @@
-## Basic config for a new FreeBSD/FreeNAS jail
+# Basic config for a new FreeBSD/FreeNAS jail
 ## (enable SSH access so we can use Putty/etc)
-###########################################################
-
+--
+```
 passwd
 pkg install nano
 grep -ni root /etc/ssh/sshd_config
@@ -13,12 +13,12 @@ service sshd start
 sysrc sshd_enable="YES"
 service sshd start
 service sshd status
+```
 
-
-## Find pkg-installable releases of req'd software
+# Find pkg-installable releases of req'd software
 ## (semi-optional demonostrative exercise)
-###########################################################
-
+---
+```
 pkg search -g "mediawiki*"
   # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
   # mediawiki131-php73-1.31.10     Wiki engine used by Wikipedia
@@ -52,23 +52,23 @@ pkg search -g "mod_php*"
   # mod_php72-7.2.34      |  PHP Scripting Language
   # mod_php73-7.3.25      |  PHP Scripting Language
   # mod_php74-7.4.13      |  PHP Scripting Language
+```
 
-
-## Install all 4 packages simultaneously
+# Install all 4 packages simultaneously
 ## (match-up versions for php and mysql)
-###########################################################
-
+---
+```
 pkg install mediawiki135-php74 \
             apache24 \
             mysql57-server \
             mod_php74
 pkg info
+```
 
-
-## Review developer install notes for useful tips
+# Review developer install notes for useful tips
 ## (same messages that print after install, above)
-###########################################################
-
+---
+```
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
   # in your /etc/rc.conf. Extra options can be found in startup script.
@@ -91,12 +91,12 @@ pkg info -D mysql57-server
   # $HOME/.mysql_secret
   # ie. when you want to use "mysql -u root -p" first you should see 
   # password in /root/.mysql_secret
+```
 
-
-## Collect some info we'll use later
+# Collect some info we'll use later
 ## (semi-optional demonstrative exercise)
-###########################################################
-
+---
+```
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
   # ..              .k5login        .login
@@ -104,11 +104,11 @@ pkg list mediawiki135-php74 | grep mediawiki/index.php
   # /usr/local/www/mediawiki/index.php
 pkg list apache24 | grep httpd.conf
   # /usr/local/etc/apache24/httpd.conf.sample
+```
 
-
-## Start web & database services
+# Start web & database services
 ## (following up on the useful apache note)
-###########################################################
+---
 
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
@@ -125,10 +125,10 @@ service mysql-server start
 service mysql-server status
 
 
-## Collect some more info
+# Collect some more info
 ## (semi-optional demonstrative exercise)
-###########################################################
-
+---
+```
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
   # ..              .k5login        .login          .profile
@@ -152,12 +152,12 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
   # 247:# DocumentRoot: The directory out of which you will serve your
   # 251:DocumentRoot "/usr/local/www/apache24/data"
   # 351:# access content that does not live under the DocumentRoot.
+```
 
-
-## Take some shortcuts & setup config files
+# Take some shortcuts & setup config files
 ## (following up on that apache readme)
-###########################################################
-
+---
+```
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
   >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 cat /usr/local/etc/apache24/httpd.conf | \
@@ -172,22 +172,21 @@ cat /usr/local/etc/apache24/httpd.conf | grep -C1 index.html \
 nano /usr/local/etc/apache24/httpd.conf
 nano /usr/local/etc/apache24/modules.d/080_mod_php.conf
 nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
+```
 
-
-## Check configs and tell apache to reload them
+# Check configs and tell apache to reload them
 ## (Technically, reload alone should do both)
-###########################################################
+---
 
 service apache24 configtest
 service apache24 reload
 
 
-## Notes
-###########################################################
+# Notes
+---
 
 re: general procedure
-https://www.digitalocean.com/community/tutorials/how-to-
-  install-an-apache-mysql-and-php-famp-stack-on-freebsd-12-0
+https://www.digitalocean.com/community/tutorials/how-to-install-an-apache-mysql-and-php-famp-stack-on-freebsd-12-0
 
 re: mod_php necessaries
 https://websistent.com/change-the-default-directory-index/
