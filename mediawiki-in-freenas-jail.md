@@ -15,8 +15,8 @@ service sshd start
 service sshd status
 ```
 
-# Find pkg-installable releases of req'd software
-## semi-optional demonostrative exercise
+## Find pkg-installable releases of req'd software
+### semi-optional demonostrative exercise
 ```
 pkg search -g "mediawiki*"
   # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
