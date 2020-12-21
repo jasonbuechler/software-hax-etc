@@ -53,8 +53,9 @@ pkg search -g "mod_php*"
   # mod_php74-7.4.13      |  PHP Scripting Language
 ```
 
-# Install all 4 packages simultaneously
-## match-up versions for php and mysql
+---
+### Install all 4 packages simultaneously
+#### match-up versions for php and mysql
 ```
 pkg install mediawiki135-php74 \
             apache24 \
@@ -63,8 +64,9 @@ pkg install mediawiki135-php74 \
 pkg info
 ```
 
-# Review developer install notes for useful tips
-## same messages that print after install, above
+---
+### Review developer install notes for useful tips
+#### same messages that print after install, above
 ```
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
@@ -90,8 +92,9 @@ pkg info -D mysql57-server
   # password in /root/.mysql_secret
 ```
 
-# Collect some info we'll use later
-## semi-optional demonstrative exercise
+---
+### Collect some info we'll use later
+#### semi-optional demonstrative exercise
 ```
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
@@ -102,8 +105,9 @@ pkg list apache24 | grep httpd.conf
   # /usr/local/etc/apache24/httpd.conf.sample
 ```
 
-# Start web & database services
-## following up on the useful apache note
+---
+### Start web & database services
+#### following up on the useful apache note
 ```
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
@@ -120,8 +124,9 @@ service mysql-server start
 service mysql-server status
 ```
 
-# Collect some more info
-## semi-optional demonstrative exercise
+---
+### Collect some more info
+#### semi-optional demonstrative exercise
 ```
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
@@ -148,8 +153,9 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
   # 351:# access content that does not live under the DocumentRoot.
 ```
 
-# Take some shortcuts & setup config files
-## following up on that apache readme
+---
+### Take some shortcuts & setup config files
+#### following up on that apache readme
 ```
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
   >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
@@ -167,16 +173,16 @@ nano /usr/local/etc/apache24/modules.d/080_mod_php.conf
 nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 ```
 
-# Check configs and tell apache to reload them
-## Technically, reload alone should do both
+---
+### Check configs and tell apache to reload them
+#### Technically, reload alone should do both
 ```
 service apache24 configtest
 service apache24 reload
 ```
 
 ---
-
-# Notes
+### Notes
 
 re: general procedure
 https://www.digitalocean.com/community/tutorials/how-to-install-an-apache-mysql-and-php-famp-stack-on-freebsd-12-0
