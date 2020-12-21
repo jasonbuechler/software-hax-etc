@@ -1,6 +1,5 @@
-## Basic config for a new FreeBSD/FreeNAS jail
-### enable SSH access so we can use Putty/etc
----
+### Basic config for a new FreeBSD/FreeNAS jail
+#### enable SSH access so we can use Putty/etc
 ```
 passwd
 pkg install nano
@@ -15,8 +14,9 @@ service sshd start
 service sshd status
 ```
 
-## Find pkg-installable releases of req'd software
-### semi-optional demonostrative exercise
+---
+### Find pkg-installable releases of req'd software
+#### semi-optional demonostrative exercise
 ```
 pkg search -g "mediawiki*"
   # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
