@@ -1,10 +1,12 @@
 # Demystifying mediawiki installation (FreeNAS12-based jail install)
 ### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
+Use the FreeNAS jail manager to create a new jail with automatic DHCP.
+Use the FreeNAS jail manager to open a shell into the brand new jail.
 
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### enable SSH access so we can use Putty/etc
-Use nano to change "#PermitRootLogin no" to "PermitRootLogin yes".
+Use nano to change `#PermitRootLogin no` to `PermitRootLogin yes`".
 ```bash
 passwd
 pkg install nano
@@ -19,6 +21,7 @@ service sshd start
 sysrc sshd_enable="YES"
 service sshd start
 service sshd status
+echo "Now SSH to <IP of jail> using Putty/Terminal/etc!"
 ```
 
 ---
