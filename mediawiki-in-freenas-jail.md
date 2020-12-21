@@ -1,6 +1,6 @@
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### enable SSH access so we can use Putty/etc
-```
+```bash
 passwd
 pkg install nano
 grep -ni root /etc/ssh/sshd_config
