@@ -191,7 +191,7 @@ echo "done!"
 
 ---
 ### Complete the mediawiki "wizard" 
-#### http://<IP of jail>/index.php
+#### http://\<IP of jail\>/ (or http://\<IP\>/mw-config/index.php)
 For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.
 
 ---
