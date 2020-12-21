@@ -1,6 +1,6 @@
-# Basic config for a new FreeBSD/FreeNAS jail
-## (enable SSH access so we can use Putty/etc)
---
+## Basic config for a new FreeBSD/FreeNAS jail
+### enable SSH access so we can use Putty/etc
+---
 ```
 passwd
 pkg install nano
@@ -16,8 +16,7 @@ service sshd status
 ```
 
 # Find pkg-installable releases of req'd software
-## (semi-optional demonostrative exercise)
----
+## semi-optional demonostrative exercise
 ```
 pkg search -g "mediawiki*"
   # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
@@ -55,8 +54,7 @@ pkg search -g "mod_php*"
 ```
 
 # Install all 4 packages simultaneously
-## (match-up versions for php and mysql)
----
+## match-up versions for php and mysql
 ```
 pkg install mediawiki135-php74 \
             apache24 \
@@ -66,8 +64,7 @@ pkg info
 ```
 
 # Review developer install notes for useful tips
-## (same messages that print after install, above)
----
+## same messages that print after install, above
 ```
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
@@ -94,8 +91,7 @@ pkg info -D mysql57-server
 ```
 
 # Collect some info we'll use later
-## (semi-optional demonstrative exercise)
----
+## semi-optional demonstrative exercise
 ```
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
@@ -107,9 +103,8 @@ pkg list apache24 | grep httpd.conf
 ```
 
 # Start web & database services
-## (following up on the useful apache note)
----
-
+## following up on the useful apache note
+```
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
   # in /etc/rc.conf or use 'onestart' instead of 'start'.
@@ -123,11 +118,10 @@ service mysql-server start
 sysrc mysql_enable=YES
 service mysql-server start
 service mysql-server status
-
+```
 
 # Collect some more info
-## (semi-optional demonstrative exercise)
----
+## semi-optional demonstrative exercise
 ```
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
@@ -155,8 +149,7 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
 ```
 
 # Take some shortcuts & setup config files
-## (following up on that apache readme)
----
+## following up on that apache readme
 ```
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
   >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
@@ -175,15 +168,15 @@ nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 ```
 
 # Check configs and tell apache to reload them
-## (Technically, reload alone should do both)
----
-
+## Technically, reload alone should do both
+```
 service apache24 configtest
 service apache24 reload
+```
 
+---
 
 # Notes
----
 
 re: general procedure
 https://www.digitalocean.com/community/tutorials/how-to-install-an-apache-mysql-and-php-famp-stack-on-freebsd-12-0
