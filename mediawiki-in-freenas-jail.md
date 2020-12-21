@@ -186,7 +186,7 @@ nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 service apache24 configtest
 service apache24 reload
 service apache24 status
-cat 
+echo "done!"
 ```
 
 ---
