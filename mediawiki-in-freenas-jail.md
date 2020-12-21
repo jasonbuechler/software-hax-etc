@@ -1,5 +1,5 @@
-## Basic config for a new FreeBSD/FreeNAS jail
-### enable SSH access so we can use Putty/etc
+### Basic config for a new FreeBSD/FreeNAS jail
+#### enable SSH access so we can use Putty/etc
 ---
 ```
 passwd
