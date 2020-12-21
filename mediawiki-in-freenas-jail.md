@@ -1,7 +1,7 @@
 # Demystifying mediawiki installation (FreeNAS12-based jail install)
 ### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
-Use the FreeNAS jail manager to create a new jail with automatic DHCP.
-Use the FreeNAS jail manager to open a shell into the brand new jail.
+First, use the FreeNAS jail manager to create a new jail with automatic DHCP.<br>
+Then, again use FreeNAS jail manager to open a shell into the brand new jail.<br>
 
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
@@ -168,8 +168,8 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
 ---
 ### Take some shortcuts & setup config files
 #### following up on that apache readme
-Use nano to comment-out the DocumentRoot line of the main conf...
-Use nano to add index.php after index.html in the php conf...
+Use nano to comment-out the DocumentRoot line of the main conf...<br>
+Use nano to add index.php after index.html in the php conf...<br>
 Use nano to set DirectoryRoot + directives in the mediawiki conf. 
 ```bash
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
@@ -201,15 +201,16 @@ echo "done!"
 ---
 ### Complete the mediawiki "wizard" 
 #### http://\<IP of jail\>/ (or http://\<IP\>/mw-config/index.php)
-For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.
-
+For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.<br>
+<br>
 You'll obviously want to update everything to be more secure later. And similarly, also run `mysql_secure_installation`.
 
 ---
 ### Notes
 
-re: general procedure
+re: general procedure<br>
 https://www.digitalocean.com/community/tutorials/how-to-install-an-apache-mysql-and-php-famp-stack-on-freebsd-12-0
 
-re: mod_php necessaries
+
+re: mod_php necessaries<br>
 https://websistent.com/change-the-default-directory-index/
