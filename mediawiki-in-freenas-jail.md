@@ -6,7 +6,7 @@ Then, again use FreeNAS jail manager to open a shell into the brand new jail.<br
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### enable SSH access so we can use Putty/etc
-Use nano to change `#PermitRootLogin no` to `PermitRootLogin yes`".
+Use nano to change `#PermitRootLogin no` to `PermitRootLogin yes`.
 ```bash
 passwd
 pkg install nano
