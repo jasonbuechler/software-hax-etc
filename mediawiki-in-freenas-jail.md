@@ -17,7 +17,7 @@ service sshd status
 ---
 ### Find pkg-installable releases of req'd software
 #### semi-optional demonostrative exercise
-```
+```bash
 pkg search -g "mediawiki*"
   # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
   # mediawiki131-php73-1.31.10     Wiki engine used by Wikipedia
@@ -56,7 +56,7 @@ pkg search -g "mod_php*"
 ---
 ### Install all 4 packages simultaneously
 #### match-up versions for php and mysql
-```
+```bash
 pkg install mediawiki135-php74 \
             apache24 \
             mysql57-server \
@@ -67,7 +67,7 @@ pkg info
 ---
 ### Review developer install notes for useful tips
 #### same messages that print after install, above
-```
+```bash
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
   # in your /etc/rc.conf. Extra options can be found in startup script.
@@ -95,7 +95,7 @@ pkg info -D mysql57-server
 ---
 ### Collect some info we'll use later
 #### semi-optional demonstrative exercise
-```
+```bash
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
   # ..              .k5login        .login
@@ -108,7 +108,7 @@ pkg list apache24 | grep httpd.conf
 ---
 ### Start web & database services
 #### following up on the useful apache note
-```
+```bash
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
   # in /etc/rc.conf or use 'onestart' instead of 'start'.
@@ -127,7 +127,7 @@ service mysql-server status
 ---
 ### Collect some more info
 #### semi-optional demonstrative exercise
-```
+```bash
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
   # ..              .k5login        .login          .profile
@@ -156,7 +156,7 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
 ---
 ### Take some shortcuts & setup config files
 #### following up on that apache readme
-```
+```bash
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
   >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 cat /usr/local/etc/apache24/httpd.conf | \
@@ -176,7 +176,7 @@ nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 ---
 ### Check configs and tell apache to reload them
 #### Technically, reload alone should do both
-```
+```bash
 service apache24 configtest
 service apache24 reload
 ```
