@@ -1,3 +1,7 @@
+# Demystifying mediawiki installation (FreeNAS12-based jail install)
+### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
+
+---
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### enable SSH access so we can use Putty/etc
 ```bash
@@ -131,6 +135,8 @@ service mysql-server status
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
   # ..              .k5login        .login          .profile
+cat /root/.mysql_secret
+  # <random passcode>  ## NOTE THIS FOR LATER
 ls /usr/local/etc/apache24/
   # Includes                httpd.conf.sample       mime.types.sample
   # envvars.d               magic                   modules.d
@@ -179,7 +185,14 @@ nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
 ```bash
 service apache24 configtest
 service apache24 reload
+service apache24 status
+cat 
 ```
+
+---
+### Complete the mediawiki "wizard" 
+#### http://<IP of jail>/index.php
+For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.
 
 ---
 ### Notes
