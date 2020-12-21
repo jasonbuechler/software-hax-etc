@@ -4,6 +4,7 @@
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### enable SSH access so we can use Putty/etc
+Use nano to change "#PermitRootLogin no" to "PermitRootLogin yes".
 ```bash
 passwd
 pkg install nano
@@ -13,6 +14,8 @@ grep -ni root /etc/ssh/sshd_config
   # 107:#ChrootDirectory none
 nano /etc/ssh/sshd_config
 service sshd start
+  # Cannot 'start' sshd. Set sshd_enable to YES in
+  # /etc/rc.conf or use 'onestart' instead of 'start'.
 sysrc sshd_enable="YES"
 service sshd start
 service sshd status
@@ -162,6 +165,9 @@ grep -ni documentroot /usr/local/etc/apache24/httpd.conf
 ---
 ### Take some shortcuts & setup config files
 #### following up on that apache readme
+Use nano to comment-out the DocumentRoot line of the main conf...
+Use nano to add index.php after index.html in the php conf...
+Use nano to set DirectoryRoot + directives in the mediawiki conf. 
 ```bash
 pkg list mediawiki135-php74 | grep mediawiki/index.php \
   >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
