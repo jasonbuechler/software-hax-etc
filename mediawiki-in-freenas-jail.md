@@ -194,6 +194,8 @@ echo "done!"
 #### http://\<IP of jail\>/ (or http://\<IP\>/mw-config/index.php)
 For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.
 
+You'll obviously want to update everything to be more secure later. And similarly, also run `mysql_secure_installation`.
+
 ---
 ### Notes
 
