@@ -1,5 +1,6 @@
 # Demystifying mediawiki installation (FreeNAS12-based jail install)
-### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
+#### (or most any *nix system: only the first group of steps is jail-specific)
+#### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
 First, use the FreeNAS jail manager to create a new jail with automatic DHCP.<br>
 Then, again use FreeNAS jail manager to open a shell into the brand new jail.<br>
 
@@ -155,11 +156,11 @@ cat /usr/local/etc/apache24/modules.d/README_modules.d
   # Files are automatically included if the name
   # begins with a three digit number followed by '_'
   # and ending in '.conf' e.g. '080_mod_php.conf'
-grep -C1 index.html /usr/local/etc/apache24/httpd.conf
+cat /usr/local/etc/apache24/httpd.conf | grep -C1 index.html
   # <IfModule dir_module>
   #     DirectoryIndex index.html
   # </IfModule>
-grep -ni documentroot /usr/local/etc/apache24/httpd.conf
+cat /usr/local/etc/apache24/httpd.conf | grep -ni documentroot
   # 247:# DocumentRoot: The directory out of which you will serve your
   # 251:DocumentRoot "/usr/local/www/apache24/data"
   # 351:# access content that does not live under the DocumentRoot.
