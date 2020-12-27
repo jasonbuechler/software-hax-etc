@@ -1,8 +1,11 @@
-# Demystifying mediawiki installation (FreeNAS12-based jail install)
-#### (or most any *nix system: only the first group of steps is jail-specific)
+# Demystifying mediawiki installation 
 #### Installing and configuring an *\*AMP* stack "by hand" isn't complex if you are willing to give it a try
-First, use the FreeNAS jail manager to create a new jail with automatic DHCP.<br>
-Then, again use FreeNAS jail manager to open a shell into the brand new jail.<br>
+
+This document specifically uses a FreeNAS12-based jail install... but outside of idiosyncrasies that exist in different \*nix systems, the following directions are pretty generic.  
+
+By "idiosyncrasies", I mean whatever isn't identical to a new, stock FreeNAS jail. Among other things, this probably means your command-line interface shell (`csh` vs `bash` vs ...), your package manager (`pkg` vs `apt` vs `yum` vs ...), and the individual packages available to your system's package manager.  (One very notable example is that mediawiki+php come as one convenient bundle in the pkg ecosystem... so if you're working with redhat, for example, you might have to download/wget/git-clone mediawiki to your system and check its requirements for the necessary PHP version, which you would then install separately through your package manager.)
+
+In the first section below, I assume you've just used the FreeNAS jail manager to create a new jail (with automatic DHCP) and then used the jail-manager to open a console-shell into the brand new jail.  Since that console can be annoying to use (control-w and copy/paste in particular) my first step is enabling the SSH service and allowing 'root' to connect.
 
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
@@ -30,9 +33,6 @@ echo "Now SSH to <IP of jail> using Putty/Terminal/etc!"
 #### semi-optional demonostrative exercise
 ```bash
 pkg search -g "mediawiki*"
-  # mediawiki131-php72-1.31.10     Wiki engine used by Wikipedia
-  # mediawiki131-php73-1.31.10     Wiki engine used by Wikipedia
-  # mediawiki131-php74-1.31.10     Wiki engine used by Wikipedia
   # mediawiki133-php72-1.33.3      Wiki engine used by Wikipedia
   # mediawiki133-php73-1.33.3      Wiki engine used by Wikipedia
   # mediawiki133-php74-1.33.3      Wiki engine used by Wikipedia
@@ -114,6 +114,9 @@ pkg list mediawiki135-php74 | grep mediawiki/index.php
   # /usr/local/www/mediawiki/index.php
 pkg list apache24 | grep httpd.conf
   # /usr/local/etc/apache24/httpd.conf.sample
+set apacheDir=/usr/local/etc/apache24
+echo "apache configs live in $apacheDir"
+  # apache configs live in /usr/local/etc/apache24
 ```
 
 ---
@@ -139,31 +142,35 @@ service mysql-server status
 ### Collect some more info
 #### semi-optional demonstrative exercise
 ```bash
+echo $apacheDir
+  # /usr/local/etc/apache24
 ls -a /root
   # .               .cshrc          .lesshst        .mysql_secret
   # ..              .k5login        .login          .profile
 cat /root/.mysql_secret
   # <random passcode>  ## NOTE THIS FOR LATER
-ls /usr/local/etc/apache24/
+ls $apacheDir
   # Includes                httpd.conf.sample       mime.types.sample
   # envvars.d               magic                   modules.d
   # extra                   magic.sample
   # httpd.conf              mime.types
-ls /usr/local/etc/apache24/modules.d/
+ls $apacheDir/modules.d/
   # README_modules.d
-cat /usr/local/etc/apache24/modules.d/README_modules.d
+cat $apacheDir/modules.d/README_modules.d
   # Directory for third party module config files.
   # Files are automatically included if the name
   # begins with a three digit number followed by '_'
   # and ending in '.conf' e.g. '080_mod_php.conf'
-cat /usr/local/etc/apache24/httpd.conf | grep -C1 index.html
+cat $apacheDir/httpd.conf | grep -C1 index.html
   # <IfModule dir_module>
   #     DirectoryIndex index.html
   # </IfModule>
-cat /usr/local/etc/apache24/httpd.conf | grep -ni documentroot
+cat $apacheDir/httpd.conf | grep -ni documentroot
   # 247:# DocumentRoot: The directory out of which you will serve your
   # 251:DocumentRoot "/usr/local/www/apache24/data"
   # 351:# access content that does not live under the DocumentRoot.
+cat $apacheDir/httpd.conf | grep -i "^documentroot"
+  # DocumentRoot "/usr/local/www/apache24/data"
 ```
 
 ---
@@ -173,20 +180,20 @@ Use nano to comment-out the DocumentRoot line of the main conf...<br>
 Use nano to add index.php after index.html in the php conf...<br>
 Use nano to set DirectoryRoot + directives in the mediawiki conf. 
 ```bash
-pkg list mediawiki135-php74 | grep mediawiki/index.php \
-  >   /usr/local/etc/apache24/modules.d/099_mediawiki.conf
+pkg list mediawiki135-php74 | grep "mediawiki/index.php" \
+  >   $apacheDir/modules.d/099_mediawiki.conf
 cat /usr/local/etc/apache24/httpd.conf | \
   grep -A99 -i ^documentroot | grep -B99 -m1 "</Directory>" \
-  >>  /usr/local/etc/apache24/modules.d/099_mediawiki.conf
+  >>  $apacheDir/modules.d/099_mediawiki.conf
 
 pkg info -D mod_php74 | grep -i -e filesmatch -e sethandler \
-  >   /usr/local/etc/apache24/modules.d/080_mod_php.conf
-cat /usr/local/etc/apache24/httpd.conf | grep -C1 index.html \
-  >>  /usr/local/etc/apache24/modules.d/080_mod_php.conf
+  >   $apacheDir/modules.d/080_mod_php.conf
+cat $apacheDir/httpd.conf | grep -C1 "index.html" \
+  >>  $apacheDir/modules.d/080_mod_php.conf
 
-nano /usr/local/etc/apache24/httpd.conf
-nano /usr/local/etc/apache24/modules.d/080_mod_php.conf
-nano /usr/local/etc/apache24/modules.d/099_mediawiki.conf
+nano $apacheDir/httpd.conf
+nano $apacheDir/modules.d/080_mod_php.conf
+nano $apacheDir/modules.d/099_mediawiki.conf
 ```
 
 ---
