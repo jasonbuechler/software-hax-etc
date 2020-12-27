@@ -5,7 +5,7 @@ This document specifically uses a FreeNAS12-based jail install... but outside of
 
 By "idiosyncrasies", I mean whatever isn't identical to a new, stock FreeNAS jail. Among other things, this probably means your command-line interface shell (`csh` vs `bash` vs ...), your package manager (`pkg` vs `apt` vs `yum` vs ...), and the individual packages available to your system's package manager.  (One very notable example is that mediawiki+php come as one convenient bundle in the pkg ecosystem... so if you're working with redhat, for example, you might have to download/wget/git-clone mediawiki to your system and check its requirements for the necessary PHP version, which you would then install separately through your package manager.)
 
-In the first section below, I assume you've just used the FreeNAS jail manager to create a new jail (with automatic DHCP) and then used the jail-manager to open a console-shell into the brand new jail.  Since that console can be annoying to use (control-w and copy/paste in particular) my first step is enabling the SSH service and allowing 'root' to connect.
+In the first section below, I'm assuming you've just used the FreeNAS jail manager to create a new jail (with automatic DHCP) and then used the jail-manager to open a console-shell into the brand new jail.  Since that console can be annoying to use (control-w and copy/paste in particular) my first step is enabling the SSH service and allowing 'root' to connect.
 
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
@@ -33,15 +33,15 @@ echo "Now SSH to <IP of jail> using Putty/Terminal/etc!"
 #### semi-optional demonostrative exercise
 ```bash
 pkg search -g "mediawiki*"
-  # mediawiki133-php72-1.33.3      Wiki engine used by Wikipedia
-  # mediawiki133-php73-1.33.3      Wiki engine used by Wikipedia
-  # mediawiki133-php74-1.33.3      Wiki engine used by Wikipedia
-  # mediawiki134-php72-1.34.4      Wiki engine used by Wikipedia
-  # mediawiki134-php73-1.34.4      Wiki engine used by Wikipedia
-  # mediawiki134-php74-1.34.4      Wiki engine used by Wikipedia
-  # mediawiki135-php72-1.35.0      Wiki engine used by Wikipedia
-  # mediawiki135-php73-1.35.0      Wiki engine used by Wikipedia
-  # mediawiki135-php74-1.35.0      Wiki engine used by Wikipedia
+  # mediawiki133-php72-1.33.3     Wiki engine used by Wikipedia
+  # mediawiki133-php73-1.33.3     Wiki engine used by Wikipedia
+  # mediawiki133-php74-1.33.3     Wiki engine used by Wikipedia
+  # mediawiki134-php72-1.34.4     Wiki engine used by Wikipedia
+  # mediawiki134-php73-1.34.4     Wiki engine used by Wikipedia
+  # mediawiki134-php74-1.34.4     Wiki engine used by Wikipedia
+  # mediawiki135-php72-1.35.0     Wiki engine used by Wikipedia
+  # mediawiki135-php73-1.35.0     Wiki engine used by Wikipedia
+  # mediawiki135-php74-1.35.0     Wiki engine used by Wikipedia
 
 pkg search -d mediawiki135-php74 | grep -v "php74-[a-z]"
   # mediawiki135-php74-1.35.0
@@ -52,16 +52,16 @@ pkg search -d mediawiki135-php74 | grep -v "php74-[a-z]"
 
 
 pkg search -g "mysql57*"
-  # mysql57-client-5.7.32 |  Multithreaded SQL database (client)
-  # mysql57-server-5.7.32 |  Multithreaded SQL database (server)
+  # mysql57-client-5.7.32    Multithreaded SQL database (client)
+  # mysql57-server-5.7.32    Multithreaded SQL database (server)
 
 pkg search -g "apache*" | grep server
-  # apache24-2.4.46       | Version 2.4.x of Apache web server
+  # apache24-2.4.46         Version 2.4.x of Apache web server
 
 pkg search -g "mod_php*"
-  # mod_php72-7.2.34      |  PHP Scripting Language
-  # mod_php73-7.3.25      |  PHP Scripting Language
-  # mod_php74-7.4.13      |  PHP Scripting Language
+  # mod_php72-7.2.34         PHP Scripting Language
+  # mod_php73-7.3.25         PHP Scripting Language
+  # mod_php74-7.4.13         PHP Scripting Language
 ```
 
 ---
@@ -77,7 +77,8 @@ pkg info
 
 ---
 ### Review developer install notes for useful tips
-#### same messages that print after install, above
+#### (The info that gets printed after installs)
+The `pkg` package manager can print these messages at-will using the `info -D` subcommand.
 ```bash
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
