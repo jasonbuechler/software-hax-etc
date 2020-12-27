@@ -9,7 +9,7 @@ In the first section below, I'm assuming you've just used the FreeNAS jail manag
 
 ---
 ### Basic config for a new FreeBSD/FreeNAS jail
-#### enable SSH access so we can use Putty/etc
+#### *enable SSH access so we can use Putty/etc*
 Use nano to change `#PermitRootLogin no` to `PermitRootLogin yes`.
 ```bash
 passwd
@@ -30,7 +30,8 @@ echo "Now SSH to <IP of jail> using Putty/Terminal/etc!"
 
 ---
 ### Find pkg-installable releases of req'd software
-#### semi-optional demonostrative exercise
+#### *semi-optional demonostrative exercise*
+Searching packages can vary a bit between package managers: here I'm using the `-g` flag to enable shell-style "globbing" (using an asterisk to fill in for "anything else"), and the `-d` flag to list the direct dependencies of a given package.
 ```bash
 pkg search -g "mediawiki*"
   # mediawiki133-php72-1.33.3     Wiki engine used by Wikipedia
@@ -50,7 +51,6 @@ pkg search -d mediawiki135-php74 | grep -v "php74-[a-z]"
   #     php74-7.4.13
   #     mysql57-client-5.7.32
 
-
 pkg search -g "mysql57*"
   # mysql57-client-5.7.32    Multithreaded SQL database (client)
   # mysql57-server-5.7.32    Multithreaded SQL database (server)
@@ -66,7 +66,7 @@ pkg search -g "mod_php*"
 
 ---
 ### Install all 4 packages simultaneously
-#### match-up versions for php and mysql
+#### *match-up versions for php and mysql*
 ```bash
 pkg install mediawiki135-php74 \
             apache24 \
@@ -77,8 +77,8 @@ pkg info
 
 ---
 ### Review developer install notes for useful tips
-#### (The info that gets printed after installs)
-The `pkg` package manager can print these messages at-will using the `info -D` subcommand.
+#### *(The info that gets printed after installs)*
+The `pkg` package manager can print these messages at-will using the `info -D` subcommand. We will be putting several of the items to use, later.
 ```bash
 pkg info -D apache24
   # To run apache www server from startup, add apache24_enable="yes"
@@ -106,15 +106,18 @@ pkg info -D mysql57-server
 
 ---
 ### Collect some info we'll use later
-#### semi-optional demonstrative exercise
+#### *semi-optional demonstrative exercise*
+The `list` subcommand prints the name & path of each file installed. We will be using a couple key files to know where and how to configure things. We'll use Apache's main config directory a lot later... so I'm also establishing a variable with the path, as a shortcut.
 ```bash
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
   # ..              .k5login        .login
+  
 pkg list mediawiki135-php74 | grep mediawiki/index.php
   # /usr/local/www/mediawiki/index.php
 pkg list apache24 | grep httpd.conf
   # /usr/local/etc/apache24/httpd.conf.sample
+  
 set apacheDir=/usr/local/etc/apache24
 echo "apache configs live in $apacheDir"
   # apache configs live in /usr/local/etc/apache24
@@ -122,7 +125,8 @@ echo "apache configs live in $apacheDir"
 
 ---
 ### Start web & database services
-#### following up on the useful apache note
+#### *following up on the useful apache note*
+Apache's install note mentioned how to enable the service, but you can often get the same info by trying a pre-emptive `service XYZ start` command.
 ```bash
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
@@ -141,7 +145,7 @@ service mysql-server status
 
 ---
 ### Collect some more info
-#### semi-optional demonstrative exercise
+#### *semi-optional demonstrative exercise*
 ```bash
 echo $apacheDir
   # /usr/local/etc/apache24
