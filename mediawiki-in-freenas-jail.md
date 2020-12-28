@@ -180,7 +180,7 @@ cat $apacheDir/httpd.conf | grep -i "^documentroot"
 
 ---
 ### Take some shortcuts & setup config files
-#### following up on that apache readme
+#### *following up on that apache readme*
 Use nano to comment-out the DocumentRoot line of the main conf...<br>
 Use nano to add index.php after index.html in the php conf...<br>
 Use nano to set DirectoryRoot + directives in the mediawiki conf. 
@@ -203,12 +203,23 @@ nano $apacheDir/modules.d/099_mediawiki.conf
 
 ---
 ### Check configs and tell apache to reload them
-#### Technically, reload alone should do both
+#### *Technically, reload alone should do both*
 ```bash
 service apache24 configtest
 service apache24 reload
 service apache24 status
 echo "done!"
+```
+
+---
+### Finish MySQL setup by setting new password
+#### *Otherwise database access is restricted*
+Be very, very careful with your spacing and quote-punctution. No space can be used when passing the login-password, even if you use the short form "-p" instead. I think the punctuation below should work for any shell, if used exactly.
+```bash
+set oldPw=`awk NR==2 /root/.mysql_secret`
+mysqladmin --user=root --password="$oldPw" password 'newPassword'
+mysqladmin --user=root --password="newPassword" status
+echo "if no errors above, then you're done!"
 ```
 
 ---
