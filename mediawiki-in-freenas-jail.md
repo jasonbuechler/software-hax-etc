@@ -259,3 +259,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-an-apache-mysql-
 
 re: mod_php necessaries<br>
 https://websistent.com/change-the-default-directory-index/
+
+
+re: MySQL's pre-expired root password<br>
+http://mysqlblog.fivefarmers.com/2014/05/20/batch-mode-and-expired-passwords/
