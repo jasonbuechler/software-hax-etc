@@ -84,15 +84,18 @@ pkg info
 The `pkg` package manager can print these messages at-will using the `info -D` subcommand. We will be putting several of the items to use, later.
 ```bash
 pkg info -D apache24
-  # To run apache www server from startup, add apache24_enable="yes"
-  # in your /etc/rc.conf. Extra options can be found in startup script.
+  # To run apache www server from startup, add 
+  # apache24_enable="yes" in your /etc/rc.conf. 
 
-  # Please compare the existing httpd.conf with httpd.conf.sample
-  # and merge missing modules/instructions into httpd.conf!
+  # Please compare the existing httpd.conf 
+  # with httpd.conf.sample and merge missing 
+  # modules/instructions into httpd.conf!
 
 pkg info -D mod_php74
-  # Make sure index.php is part of your DirectoryIndex.
-  # You should add the following to your Apache configuration file:
+  # Make sure index.php is part of your 
+  # DirectoryIndex.
+  # You should add the following to your Apache 
+  # configuration file:
   # <FilesMatch "\.php$">
   #     SetHandler application/x-httpd-php
   # </FilesMatch>
@@ -101,10 +104,12 @@ pkg info -D mod_php74
   # </FilesMatch>
 
 pkg info -D mysql57-server
-  # Initial password for first time use of MySQL is saved in 
-  # $HOME/.mysql_secret
-  # ie. when you want to use "mysql -u root -p" first you should see 
-  # password in /root/.mysql_secret
+  # Initial password for first time use of MySQL 
+  # is saved in $HOME/.mysql_secret
+  #
+  # ie: when you want to use "mysql -u root -p" 
+  # first you should see password in 
+  # /root/.mysql_secret
 ```
 
 ---
@@ -119,8 +124,8 @@ The below 'index.php' file is essentially the main page for your wiki, and the d
 When the Apache service is started, its 'httpd.conf' file will be generated/cloned in the same directory as the sample one. The *directory* they are *in* will be referenced repeatedly below... so for simplicity you should establish/set a variable to stand-in for that path.  
 ```bash
 ls -a ~/
-  # .               .cshrc          .lesshst        .profile
-  # ..              .k5login        .login
+  # .     .cshrc      .lesshst    .profile
+  # ..    .k5login    .login
   
 pkg list mediawiki135-php74 | grep mediawiki/index.php
   # /usr/local/www/mediawiki/index.php
@@ -161,15 +166,15 @@ The 'modules.d' directory allows for Apache directives to be set outside the mai
 echo $apacheDir
   # /usr/local/etc/apache24
 ls -a /root
-  # .               .cshrc          .lesshst        .mysql_secret
-  # ..              .k5login        .login          .profile
+  # .     .cshrc      .lesshst    .mysql_secret
+  # ..    .k5login    .login      .profile
 cat /root/.mysql_secret
   # <random passcode>  ## NOTE THIS FOR LATER
 ls $apacheDir
-  # Includes                httpd.conf.sample       mime.types.sample
-  # envvars.d               magic                   modules.d
-  # extra                   magic.sample
-  # httpd.conf              mime.types
+  # Includes        httpd.conf.sample       mime.types.sample
+  # envvars.d       magic                   modules.d
+  # extra           magic.sample
+  # httpd.conf      mime.types
 ls $apacheDir/modules.d/
   # README_modules.d
 cat $apacheDir/modules.d/README_modules.d
@@ -196,19 +201,19 @@ Use nano to comment-out the DocumentRoot line of the main conf...<br>
 Use nano to add index.php after index.html in the php conf...<br>
 Use nano to set DirectoryRoot + directives in the mediawiki conf. 
 ```bash
-pkg list mediawiki135-php74 |            \
-  grep "mediawiki/index.php"             \
+pkg list mediawiki135-php74 |             \
+  grep "mediawiki/index.php"              \
   >   $apacheDir/modules.d/099_mediawiki.conf
-cat /usr/local/etc/apache24/httpd.conf | \
-  grep -A99 -i ^documentroot |           \
-  grep -B99 -m1 "</Directory>"           \
+cat /usr/local/etc/apache24/httpd.conf |  \
+  grep -A99 -i ^documentroot |            \
+  grep -B99 -m1 "</Directory>"            \
   >>  $apacheDir/modules.d/099_mediawiki.conf
 
-pkg info -D mod_php74 |                  \
-  grep -i -e filesmatch -e sethandler    \
+pkg info -D mod_php74 |                   \
+  grep -i -e filesmatch -e sethandler     \
   >   $apacheDir/modules.d/080_mod_php.conf
-cat $apacheDir/httpd.conf |              \
-  grep -C1 "index.html"                  \
+cat $apacheDir/httpd.conf |               \
+  grep -C1 "index.html"                   \
   >>  $apacheDir/modules.d/080_mod_php.conf
 
 nano $apacheDir/httpd.conf
