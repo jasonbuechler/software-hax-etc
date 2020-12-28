@@ -58,7 +58,7 @@ pkg search -g "mysql57*"
   # mysql57-server-5.7.32    Multithreaded SQL database (server)
 
 pkg search -g "apache*" | grep server
-  # apache24-2.4.46         Version 2.4.x of Apache web server
+  # apache24-2.4.46          Version 2.4.x of Apache web server
 
 pkg search -g "mod_php*"
   # mod_php72-7.2.34         PHP Scripting Language
@@ -72,8 +72,8 @@ pkg search -g "mod_php*"
 The `pkg info` command lists every package that was installed, including those of all required dependencies. 
 ```bash
 pkg install mediawiki135-php74 \
-            apache24 \
-            mysql57-server \
+            apache24           \
+            mysql57-server     \
             mod_php74
 pkg info
 ```
