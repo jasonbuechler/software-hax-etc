@@ -169,6 +169,7 @@ ls -a /root
   # .     .cshrc      .lesshst    .mysql_secret
   # ..    .k5login    .login      .profile
 cat /root/.mysql_secret
+  # #Password set for user 'root@localhost'
   # <random passcode>  ## NOTE THIS FOR LATER
 ls $apacheDir
   # Includes        httpd.conf.sample       mime.types.sample
@@ -235,7 +236,7 @@ echo "done!"
 ### Finish MySQL setup by setting new password
 #### *Otherwise database access is restricted*
 Be very, very careful with your spacing and quote-punctution. No space can be used when passing the login-password, even if you use the short form "-p" instead. I think the punctuation below should work for any shell, if used exactly.
-The awk command pulls the 2nd line out of the pre-expired password file. (and the 'oldPw' variable is set to that value.)
+The awk command grabs the pre-expired mysql password via copying the 2nd line out of the password file. (And the 'oldPw' variable is then set to that value.)
 ```bash
 set oldPw=`awk NR==2 /root/.mysql_secret`
 mysqladmin --user=root --password="$oldPw" password 'newPassword'
