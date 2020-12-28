@@ -11,6 +11,8 @@ In the first section below, I'm assuming you've just used the FreeNAS jail manag
 ### Basic config for a new FreeBSD/FreeNAS jail
 #### *enable SSH access so we can use Putty/etc*
 Use nano to change `#PermitRootLogin no` to `PermitRootLogin yes`.
+
+The `-ni` flags tell `grep` to be case-insensitive and to print the line numbers of where the matched results are found.
 ```bash
 passwd
 pkg install nano
@@ -67,6 +69,7 @@ pkg search -g "mod_php*"
 ---
 ### Install all 4 packages simultaneously
 #### *match-up versions for php and mysql*
+The `pkg info` command lists every package that was installed, including those of all required dependencies. 
 ```bash
 pkg install mediawiki135-php74 \
             apache24 \
@@ -106,8 +109,14 @@ pkg info -D mysql57-server
 
 ---
 ### Collect some info we'll use later
-#### *semi-optional demonstrative exercise*
-The `list` subcommand prints the name & path of each file installed. We will be using a couple key files to know where and how to configure things. We'll use Apache's main config directory a lot later... so I'm also establishing a variable with the path, as a shortcut.
+#### *mandatory demonstrative exercise*
+Note that '/root/.mysql_secret' doesn't yet exist, and won't be generated until the mysql service is started.
+
+The `list` subcommand prints the name & path of each file installed. We will be using a couple key files to know where and how to configure things. 
+
+The below 'index.php' file is essentially the main page for your wiki, and the directory it's in needs to be (or reside within) Apache's 'DocumentRoot' directory.
+
+When the Apache service is started, its 'httpd.conf' file will be generated/cloned in the same directory as the sample one. The *directory* they are *in* will be referenced repeatedly below... so for simplicity you should establish/set a variable to stand-in for that path.  
 ```bash
 ls -a ~/
   # .               .cshrc          .lesshst        .profile
@@ -126,7 +135,7 @@ echo "apache configs live in $apacheDir"
 ---
 ### Start web & database services
 #### *following up on the useful apache note*
-Apache's install note mentioned how to enable the service, but you can often get the same info by trying a pre-emptive `service XYZ start` command.
+Apache's install note mentioned how to enable the service, but you can often get the same info by trying a pre-emptive `service <XYZ> start` command.
 ```bash
 service apache24 start
   # Cannot 'start' apache24. Set apache24_enable to YES 
@@ -146,6 +155,8 @@ service mysql-server status
 ---
 ### Collect some more info
 #### *semi-optional demonstrative exercise*
+The 'modules.d' directory allows for Apache directives to be set outside the main 'httpd.conf' file, in separate config files with semantic meaning for better organization. (It would be more chaotic and harder to navigate, but a person *could* elect to put all Apache directives in the main conf instead of using additional .conf files.) 
+
 ```bash
 echo $apacheDir
   # /usr/local/etc/apache24
@@ -185,15 +196,19 @@ Use nano to comment-out the DocumentRoot line of the main conf...<br>
 Use nano to add index.php after index.html in the php conf...<br>
 Use nano to set DirectoryRoot + directives in the mediawiki conf. 
 ```bash
-pkg list mediawiki135-php74 | grep "mediawiki/index.php" \
+pkg list mediawiki135-php74 |            \
+  grep "mediawiki/index.php"             \
   >   $apacheDir/modules.d/099_mediawiki.conf
 cat /usr/local/etc/apache24/httpd.conf | \
-  grep -A99 -i ^documentroot | grep -B99 -m1 "</Directory>" \
+  grep -A99 -i ^documentroot |           \
+  grep -B99 -m1 "</Directory>"           \
   >>  $apacheDir/modules.d/099_mediawiki.conf
 
-pkg info -D mod_php74 | grep -i -e filesmatch -e sethandler \
+pkg info -D mod_php74 |                  \
+  grep -i -e filesmatch -e sethandler    \
   >   $apacheDir/modules.d/080_mod_php.conf
-cat $apacheDir/httpd.conf | grep -C1 "index.html" \
+cat $apacheDir/httpd.conf |              \
+  grep -C1 "index.html"                  \
   >>  $apacheDir/modules.d/080_mod_php.conf
 
 nano $apacheDir/httpd.conf
