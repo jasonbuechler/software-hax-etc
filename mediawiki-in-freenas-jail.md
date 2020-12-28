@@ -215,6 +215,7 @@ echo "done!"
 ### Finish MySQL setup by setting new password
 #### *Otherwise database access is restricted*
 Be very, very careful with your spacing and quote-punctution. No space can be used when passing the login-password, even if you use the short form "-p" instead. I think the punctuation below should work for any shell, if used exactly.
+The awk command pulls the 2nd line out of the pre-expired password file. (and the 'oldPw' variable is set to that value.)
 ```bash
 set oldPw=`awk NR==2 /root/.mysql_secret`
 mysqladmin --user=root --password="$oldPw" password 'newPassword'
@@ -225,8 +226,7 @@ echo "if no errors above, then you're done!"
 ---
 ### Complete the mediawiki "wizard" 
 #### http://\<IP of jail\>/ (or http://\<IP\>/mw-config/index.php)
-For the purposes of this document, just use 'root' for the mysql user, and use the password from `.mysql_secret`.<br>
-<br>
+For the purposes of this document, just use 'root' for the mysql user, and whatever password you used instead of "newPassword", above.
 You'll obviously want to update everything to be more secure later. And similarly, also run `mysql_secure_installation`.
 
 ---
