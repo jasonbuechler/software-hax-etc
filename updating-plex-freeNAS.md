@@ -28,7 +28,7 @@ Actual "guts" of Plex server:
     [inside the jail filesystem] -->   /usr/local/share/plexmediaserver/
 ```
 
-Logs and Preferences: 
+If you ever need the logs, they're in this deceptively-named directory: 
 ```
 <yourPool>/iocage/jails/<plexJail>/root/Plex Media Server/
     [inside the jail filesystem] -->   /Plex Media Server/
@@ -47,6 +47,8 @@ Semantic steps:
 5. create a shortcut named "Plex_Media_Server" that points to "Plex Media Server"
 6. restart the jail (or just the service)
 
+Although everything above (except restarting) can be accomplished on a Windows machine using 7zip and WinSCP, it's plenty easy to do exclusively via command line, if that's your cup of tea. Note: these aren't suppose to match up exactly with the above. And they don't.
+
 Steps for command-line:
 1. get WHATEVER.tar.bz2 into the jail filesystem "somehow" (e.g. wget/scp/etc)
 2. `cd <yourPool>/iocage/jails/<plexJail>/root/usr/local/share`
@@ -63,17 +65,17 @@ I'm putting this at the bottom because except for the shortcut, you don't need t
 ```
 plexmediaserver
 ├── CrashUploader
-├── lib
-├── Plex\ Commercial\ Skipper
-├── Plex\ DLNA\ Server
-├── Plex\ Media\ Fingerprinter
-├── Plex\ Media\ Scanner
-├── Plex\ Media\ Server
-├── Plex\ Relay
-├── Plex\ Script\ Host
-├── Plex\ Transcoder
-├── Plex\ Tuner\ Service
+├── lib/
+├── Plex Commercial Skipper
+├── Plex DLNA Server
+├── Plex Media Fingerprinter
+├── Plex Media Scanner
+├── Plex Media Server
+├── Plex Relay
+├── Plex Script Host
+├── Plex Transcoder
+├── Plex Tuner Service
 ├── Plex_Media_Server -> Plex\ Media\ Server   ## this is the shortcut/symlink that you need to make
-├── Resources
+├── Resources/
 └── start.sh
 ```
