@@ -47,16 +47,18 @@ Semantic steps:
 5. create a shortcut named "Plex_Media_Server" that points to "Plex Media Server"
 6. restart the jail (or just the service)
 
-Although everything above (except restarting) can be accomplished on a Windows machine using 7zip and WinSCP, it's plenty easy to do exclusively via command line, if that's your cup of tea. Note: these aren't suppose to match up exactly with the above. And they don't.
+Although everything above can be accomplished on a Windows machine using 7zip and WinSCP, it's plenty easy to do exclusively via command line, if that's your cup of tea. Note: these aren't supposed to match up exactly with the above. And they don't.
 
 Steps for command-line:
-1. get WHATEVER.tar.bz2 into the jail filesystem "somehow" (e.g. wget/scp/etc)
-2. `cd <yourPool>/iocage/jails/<plexJail>/root/usr/local/share`
-3. `bunzip2 WHATEVER.tar.bz2 | tar -xf -`
-4. `mv plexmediaserver old_PMS_dir && mv PlexMediaServer* plexmediaserver`
-5. `ln -s "Plex Media Server" plexmediaserver`
-6. `chown -R root:wheel plexmediaserver`
-7. `service plexmediaserver restart`
+```
+# first, get WHATEVER.tar.bz2 into the jail filesystem "somehow" (e.g. wget/scp/etc)
+cd <yourPool>/iocage/jails/<plexJail>/root/usr/local/share
+bunzip2 WHATEVER.tar.bz2 | tar -xf -
+mv plexmediaserver old_PMS_dir && mv PlexMediaServer* plexmediaserver
+ln -s "Plex Media Server" plexmediaserver
+chown -R root:wheel plexmediaserver
+service plexmediaserver restart
+```
 
 ---
 ### What's in the update archive/the "guts" folder?
