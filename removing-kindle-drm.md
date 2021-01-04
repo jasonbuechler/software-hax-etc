@@ -26,23 +26,23 @@ The big one to be aware of is if you're using the Kindle desktop software, "DRM 
 ## Lazy list of directions
 1. Install Calibre on your computer
 2. Install the KFX Input plugin for Calibre
-  * find the Preferences for Calibre (this can literally be difficult, depending on version and your screen width)
-  * go the 'plugins' section of preferences
-  * use the "load plugin from file" button
-  * target the *zip* file for the plugin (no need to unzip it!)
+   * find the Preferences for Calibre (this can literally be difficult, depending on version and your screen width)
+   * go the 'plugins' section of preferences
+   * use the "load plugin from file" button
+   * target the *zip* file for the plugin (no need to unzip it!)
 3. Install the DeDRM plugin for Calibre
-  * do like above
-  * modern versions are *just* the zip you need
-  * older versions had zips for multiple tools inside another zip
-  * you (probably?) need to use the customize button on this plugin, and add the serial number of your Kindle ereader
+   * do like above
+   * modern versions are *just* the zip you need
+   * older versions had zips for multiple tools inside another zip
+   * you (probably?) need to use the customize button on this plugin, and add the serial number of your Kindle ereader
 4. Prep your ebook source
-  * a usb-connected Kindle, or
-  * an "old enough" version of Kindle-for-PC/Mac, with books downloaded locally after installing the *old* version.  ...AND make sure it's set to NOT auto-update in its settings! Otherwise it'll almost immediately update itself.
+   * a usb-connected Kindle, or
+   * an "old enough" version of Kindle-for-PC/Mac, with books downloaded locally after installing the *old* version.  ...AND make sure it's set to NOT auto-update in its settings! Otherwise it'll almost immediately update itself.
 5. Simply find and add the ebook file, and "add" it to Calibre
-  * use the "add" button on the toolbar
-  * if it fails, it'll import a "nothing" book with no info and no art
-  * on a mac, desktop Kindle ebooks are in `~/Library/Application Support/Kindle/My Kindle Content/`
-  * on a PC,  desktop Kindle ebooks are in `%userprofile%\Documents\My Kindle Content`
+   * use the "add" button on the toolbar
+   * if it fails, it'll import a "nothing" book with no info and no art
+   * on a mac, desktop Kindle ebooks are in `~/Library/Application Support/Kindle/My Kindle Content/`
+   * on a PC,  desktop Kindle ebooks are in `%userprofile%\Documents\My Kindle Content`
 
 
 
