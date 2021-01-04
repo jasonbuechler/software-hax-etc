@@ -7,7 +7,7 @@ The big one to be aware of is if you're using the Kindle desktop software, "DRM 
 
 * A desktop computer (mac/pc/linux maybe!)
 * The free/opensource Calibre software (mac/pc/linux)
-* Either:
+* A source for your eBooks:
   * a Kindle with books on it (+ usb cable), or
   * the Kindle-for-PC/Mac software (with downloaded books)
 * Two plugins for Calibre:
