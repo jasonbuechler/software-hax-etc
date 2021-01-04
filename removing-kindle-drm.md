@@ -1,16 +1,16 @@
-
+# Removing DRM from Kindle eBooks
 
 ## Requirements
 Requirements are surprisingly light on necessary technical knowledge! Just some simple software but there are some things like **maximum** versions you need to be aware of, or the whole thing blows up.
 
-The big one to be aware of is if you're using the Kindle desktop software, "DRM can only be removed from KFX format files downloaded with Kindle for PC/Mac 1.26 or earlier." ...according to the DeDRM developer/repo. Contrastingly, you're going to want the latest version of all the other pieces. (DeDRM and Calibre both migrated from python2 to python3 a few years ago, which does mean there are some old versions that aren't compatible.)
+The big one is: if you're using the Kindle desktop software, *"DRM can only be removed from KFX format files downloaded with Kindle for PC/Mac 1.26 or earlier."* ...according to the DeDRM developer/repo. Contrastingly, you're going to want the latest version of all the other pieces. (DeDRM and Calibre both migrated from python2 to python3 a few years ago, which does mean there are some old versions that aren't compatible.)
 
 * A desktop computer (mac/pc/linux maybe!)
 * The free/opensource Calibre software (mac/pc/linux)
 * A source for your eBooks:
   * a Kindle with books on it (+ usb cable), or
   * the Kindle-for-PC/Mac software (with downloaded books)
-* Two plugins for Calibre:
+* Two plugins for Calibre (.zip files):
   * the KFX Input plugin
   * the DeDRM for Calibre plugin
   
@@ -20,10 +20,11 @@ The big one to be aware of is if you're using the Kindle desktop software, "DRM 
 * [Kindle for PC](http://www.oldversion.com/windows/kindle-for-pc/) old-versions archive
 * Kindle for Mac 
   * just google for old versions (no convenient site I know of)
-* [DeDRM_tools](https://github.com/apprenticeharper/DeDRM_tools) github repo
+* [DeDRM_tools](https://github.com/apprenticeharper/DeDRM_tools) github repo (download from 'releases')
 * [KFX Input plugin](https://www.mobileread.com/forums/showthread.php?t=291290) obnoxious forum thread (sorry)
 
-## Lazy list of directions
+## Lazy directions
+
 1. Install Calibre on your computer
 2. Install the KFX Input plugin for Calibre
    * find the Preferences for Calibre (this can literally be difficult, depending on version and your screen width)
