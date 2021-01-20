@@ -1,0 +1,22 @@
+Grep has some powerful options for complex matching:
+ -e <pattern>   : use multiple times for match diff things
+ -f <file>      : each line is treated as a pattern to use
+ -v             : return NON-matching lines
+
+population.txt    samples.txt
+==============    ===========
+apple             banana
+banana            cherry
+cherry            apple
+donut
+
+# find population missing from samples
+grep     -v -f samples.txt population.txt
+ --> donut
+
+# show samples in context of population
+grep -e "^" -f samples.txt population.txt
+ --> apple    \
+     banana    } these get "colored" red
+     cherry   /
+     donut
